@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RestaurantOS - Management Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .glow {
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+        }
+        
+        .metric-card {
+            transition: all 0.3s ease;
+        }
+        
+        .metric-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .nav-item {
+            transition: all 0.2s ease;
+        }
+        
+        .nav-item:hover {
+            background: rgba(59, 130, 246, 0.1);
+            border-left: 3px solid #3b82f6;
+        }
+        
+        .active-nav {
+            background: rgba(59, 130, 246, 0.15);
+            border-left: 3px solid #3b82f6;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 min-h-screen text-white">
+    <!-- Navigation Sidebar -->
+    <div class="fixed left-0 top-0 h-full w-64 glass-effect z-10">
+        <div class="p-6">
+            <h1 class="text-2xl font-bold text-blue-400 mb-8">RestaurantOS</h1>
+            <nav class="space-y-2">
+                <div class="nav-item active-nav p-3 rounded-lg cursor-pointer" onclick="showSection('dashboard')">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-5 h-5 bg-blue-500 rounded"></div>
+                        <span>Dashboard</span>
+                    </div>
+                </div>
+                <div class="nav-item p-3 rounded-lg cursor-pointer" onclick="showSection('orders')">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-5 h-5 bg-green-500 rounded"></div>
+                        <span>Orders</span>
+                    </div>
+                </div>
+                <div class="nav-item p-3 rounded-lg cursor-pointer" onclick="showSection('menu')">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-5 h-5 bg-purple-500 rounded"></div>
+                        <span>Menu</span>
+                    </div>
+                </div>
+                <div class="nav-item p-3 rounded-lg cursor-pointer" onclick="showSection('staff')">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-5 h-5 bg-orange-500 rounded"></div>
+                        <span>Staff</span>
+                    </div>
+                </div>
+                <div class="nav-item p-3 rounded-lg cursor-pointer" onclick="showSection('analytics')">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-5 h-5 bg-pink-500 rounded"></div>
+                        <span>Analytics</span>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="ml-64 p-8">
+        <!-- Dashboard Section -->
+        <div id="dashboard" class="section">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-3xl font-light">Dashboard Overview</h2>
+                <div class="text-sm text-gray-400">Today • March 15, 2024</div>
+            </div>
+
+            <!-- Metrics Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <div class="metric-card glass-effect p-6 rounded-xl">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-400 text-sm">Today's Revenue</p>
+                            <p class="text-2xl font-semibold text-green-400">$2,847</p>
+                        </div>
+                        <div class="w-12 h-12 bg-green-500 bg-opacity-20 rounded-lg flex items-center justify-center">
+                            <div class="w-6 h-6 bg-green-500 rounded"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="metric-card glass-effect p-6 rounded-xl">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-400 text-sm">Active Orders</p>
+                            <p class="text-2xl font-semibold text-blue-400">23</p>
+                        </div>
+                        <div class="w-12 h-12 bg-blue-500 bg-opacity-20 rounded-lg flex items-center justify-center">
+                            <div class="w-6 h-6 bg-blue-500 rounded"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="metric-card glass-effect p-6 rounded-xl">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-400 text-sm">Tables Occupied</p>
+                            <p class="text-2xl font-semibold text-purple-400">18/24</p>
+                        </div>
+                        <div class="w-12 h-12 bg-purple-500 bg-opacity-20 rounded-lg flex items-center justify-center">
+                            <div class="w-6 h-6 bg-purple-500 rounded"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="metric-card glass-effect p-6 rounded-xl">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-400 text-sm">Staff Online</p>
+                            <p class="text-2xl font-semibold text-orange-400">12/15</p>
+                        </div>
+                        <div class="w-12 h-12 bg-orange-500 bg-opacity-20 rounded-lg flex items-center justify-center">
+                            <div class="w-6 h-6 bg-orange-500 rounded"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="glass-effect p-6 rounded-xl">
+                <h3 class="text-xl font-medium mb-4">Recent Activity</h3>
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between p-3 bg-white bg-opacity-5 rounded-lg">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                            <span>Order #1247 completed - Table 8</span>
+                        </div>
+                        <span class="text-gray-400 text-sm">2 min ago</span>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-white bg-opacity-5 rounded-lg">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                            <span>New order received - Table 12</span>
+                        </div>
+                        <span class="text-gray-400 text-sm">5 min ago</span>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-white bg-opacity-5 rounded-lg">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-purple-500 rounded-full"></div>
+                            <span>Staff member Sarah clocked in</span>
+                        </div>
+                        <span class="text-gray-400 text-sm">12 min ago</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Orders Section -->
+        <div id="orders" class="section hidden">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-3xl font-light">Order Management</h2>
+                <button class="bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded-lg transition-colors">New Order</button>
+            </div>
+
+            <div class="glass-effect p-6 rounded-xl">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="space-y-4">
+                        <h3 class="text-lg font-medium text-orange-400">Pending</h3>
+                        <div class="bg-orange-500 bg-opacity-10 p-4 rounded-lg border border-orange-500 border-opacity-20">
+                            <div class="flex justify-between items-start mb-2">
+                                <span class="font-medium">Order #1248</span>
+                                <span class="text-sm text-gray-400">Table 5</span>
+                            </div>
+                            <p class="text-sm text-gray-300 mb-2">2x Pasta, 1x Salad, 3x Wine</p>
+                            <p class="text-green-400 font-medium">$67.50</p>
+                        </div>
+                        <div class="bg-orange-500 bg-opacity-10 p-4 rounded-lg border border-orange-500 border-opacity-20">
+                            <div class="flex justify-between items-start mb-2">
+                                <span class="font-medium">Order #1249</span>
+                                <span class="text-sm text-gray-400">Table 12</span>
+                            </div>
+                            <p class="text-sm text-gray-300 mb-2">1x Steak, 2x Beer</p>
+                            <p class="text-green-400 font-medium">$45.00</p>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <h3 class="text-lg font-medium text-blue-400">In Progress</h3>
+                        <div class="bg-blue-500 bg-opacity-10 p-4 rounded-lg border border-blue-500 border-opacity-20">
+                            <div class="flex justify-between items-start mb-2">
+                                <span class="font-medium">Order #1246</span>
+                                <span class="text-sm text-gray-400">Table 3</span>
+                            </div>
+                            <p class="text-sm text-gray-300 mb-2">3x Pizza, 2x Soda</p>
+                            <p class="text-green-400 font-medium">$89.25</p>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <h3 class="text-lg font-medium text-green-400">Ready</h3>
+                        <div class="bg-green-500 bg-opacity-10 p-4 rounded-lg border border-green-500 border-opacity-20">
+                            <div class="flex justify-between items-start mb-2">
+                                <span class="font-medium">Order #1245</span>
+                                <span class="text-sm text-gray-400">Table 7</span>
+                            </div>
+                            <p class="text-sm text-gray-300 mb-2">2x Burger, 1x Fries</p>
+                            <p class="text-green-400 font-medium">$32.50</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Menu Section -->
+        <div id="menu" class="section hidden">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-3xl font-light">Menu Management</h2>
+                <button class="bg-purple-600 hover:bg-purple-700 px-6 py-2 rounded-lg transition-colors">Add Item</button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="glass-effect p-6 rounded-xl">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-lg font-medium">Grilled Salmon</h3>
+                        <span class="text-green-400 font-semibold">$24.99</span>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-4">Fresh Atlantic salmon with herbs</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-gray-500">Available</span>
+                        <button class="text-blue-400 hover:text-blue-300 text-sm">Edit</button>
+                    </div>
+                </div>
+                
+                <div class="glass-effect p-6 rounded-xl">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-lg font-medium">Margherita Pizza</h3>
+                        <span class="text-green-400 font-semibold">$18.50</span>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-4">Classic tomato, mozzarella, basil</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-gray-500">Available</span>
+                        <button class="text-blue-400 hover:text-blue-300 text-sm">Edit</button>
+                    </div>
+                </div>
+                
+                <div class="glass-effect p-6 rounded-xl">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-lg font-medium">Caesar Salad</h3>
+                        <span class="text-green-400 font-semibold">$12.99</span>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-4">Crisp romaine, parmesan, croutons</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-red-400">Out of Stock</span>
+                        <button class="text-blue-400 hover:text-blue-300 text-sm">Edit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Staff Section -->
+        <div id="staff" class="section hidden">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-3xl font-light">Staff Management</h2>
+                <button class="bg-orange-600 hover:bg-orange-700 px-6 py-2 rounded-lg transition-colors">Add Staff</button>
+            </div>
+
+            <div class="glass-effect p-6 rounded-xl">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="bg-white bg-opacity-5 p-4 rounded-lg">
+                        <div class="flex items-center space-x-3 mb-3">
+                            <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center">
+                                <span class="text-sm font-medium">JS</span>
+                            </div>
+                            <div>
+                                <h3 class="font-medium">John Smith</h3>
+                                <p class="text-sm text-gray-400">Head Chef</p>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs bg-green-500 bg-opacity-20 text-green-400 px-2 py-1 rounded">Online</span>
+                            <span class="text-sm text-gray-400">8h 23m</span>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white bg-opacity-5 p-4 rounded-lg">
+                        <div class="flex items-center space-x-3 mb-3">
+                            <div class="w-10 h-10 bg-purple-500 rounded-full flex items-center justify-center">
+                                <span class="text-sm font-medium">SM</span>
+                            </div>
+                            <div>
+                                <h3 class="font-medium">Sarah Miller</h3>
+                                <p class="text-sm text-gray-400">Server</p>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs bg-green-500 bg-opacity-20 text-green-400 px-2 py-1 rounded">Online</span>
+                            <span class="text-sm text-gray-400">6h 45m</span>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white bg-opacity-5 p-4 rounded-lg">
+                        <div class="flex items-center space-x-3 mb-3">
+                            <div class="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center">
+                                <span class="text-sm font-medium">MJ</span>
+                            </div>
+                            <div>
+                                <h3 class="font-medium">Mike Johnson</h3>
+                                <p class="text-sm text-gray-400">Bartender</p>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs bg-gray-500 bg-opacity-20 text-gray-400 px-2 py-1 rounded">Offline</span>
+                            <span class="text-sm text-gray-400">--</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Analytics Section -->
+        <div id="analytics" class="section hidden">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-3xl font-light">Analytics</h2>
+                <select class="bg-white bg-opacity-10 border border-white border-opacity-20 rounded-lg px-4 py-2 text-white">
+                    <option>Last 7 days</option>
+                    <option>Last 30 days</option>
+                    <option>Last 3 months</option>
+                </select>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="glass-effect p-6 rounded-xl">
+                    <h3 class="text-lg font-medium mb-4">Revenue Trend</h3>
+                    <div class="h-48 flex items-end justify-between space-x-2">
+                        <div class="bg-blue-500 w-8 rounded-t" style="height: 60%"></div>
+                        <div class="bg-blue-500 w-8 rounded-t" style="height: 80%"></div>
+                        <div class="bg-blue-500 w-8 rounded-t" style="height: 45%"></div>
+                        <div class="bg-blue-500 w-8 rounded-t" style="height: 90%"></div>
+                        <div class="bg-blue-500 w-8 rounded-t" style="height: 70%"></div>
+                        <div class="bg-blue-500 w-8 rounded-t" style="height: 85%"></div>
+                        <div class="bg-blue-500 w-8 rounded-t" style="height: 95%"></div>
+                    </div>
+                </div>
+                
+                <div class="glass-effect p-6 rounded-xl">
+                    <h3 class="text-lg font-medium mb-4">Popular Items</h3>
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center">
+                            <span>Margherita Pizza</span>
+                            <span class="text-green-400">127 orders</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span>Grilled Salmon</span>
+                            <span class="text-green-400">89 orders</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span>Caesar Salad</span>
+                            <span class="text-green-400">76 orders</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span>Beef Burger</span>
+                            <span class="text-green-400">65 orders</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showSection(sectionName) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => section.classList.add('hidden'));
+            
+            // Show selected section
+            document.getElementById(sectionName).classList.remove('hidden');
+            
+            // Update navigation
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => item.classList.remove('active-nav'));
+            event.target.closest('.nav-item').classList.add('active-nav');
+        }
+
+        // Auto-update metrics simulation
+        function updateMetrics() {
+            const revenue = document.querySelector('.metric-card:nth-child(1) .text-2xl');
+            const orders = document.querySelector('.metric-card:nth-child(2) .text-2xl');
+            
+            // Simulate real-time updates
+            setInterval(() => {
+                const currentRevenue = parseInt(revenue.textContent.replace('$', '').replace(',', ''));
+                const newRevenue = currentRevenue + Math.floor(Math.random() * 50);
+                revenue.textContent = `$${newRevenue.toLocaleString()}`;
+                
+                const currentOrders = parseInt(orders.textContent);
+                const change = Math.floor(Math.random() * 3) - 1; // -1, 0, or 1
+                const newOrders = Math.max(0, currentOrders + change);
+                orders.textContent = newOrders;
+            }, 5000);
+        }
+
+        // Initialize
+        updateMetrics();
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'983e9cafa2eab9f0',t:'MTc1ODY3ODQyOC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
